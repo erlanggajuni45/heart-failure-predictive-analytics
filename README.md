@@ -93,16 +93,26 @@ Pada tahap ini, dibangun tiga algoritma *machine learning* yang berbeda untuk me
 
 ### 1. K-Nearest Neigbors (KNN)
 * **Cara Kerja**: Mengklasifikasikan data uji berdasarkan mayoritas label dari sejumlah $k$ tetangga terdekatnya menggunakan perhitungan jarak Euclideann. Pada proyek ini digunakan parameter default $k=5$.
+* **Parameter yang Digunakan**:
+  * `n_neighbors=5`: Menentukan jumlah tetangga terdekat ($k$) yang dijadikan acuan voting untuk menentukan prediksi kelas target.
 * **Kelebihan**: Sederhana, tidak memiliki asumsi terhadap distribusi data dan tidak membutuhkan fase training yang kompleks.
 * **Kekurangan**: Sangat lambat saat memprediksi data dalam jumlah besar, sensitif terhadap *outlier*, dan rentan terhadap fitur yang tidak relevaan jika jarak tidak terstandarisasi.
 
 ### 2. Random Forest Classifier
 * **Cara Kerja**: Merupakan metode *ensemble bagging* yang membangun puluhan/ratusan pohon keputusan secara paralel dengan subset data dan subset fitur yang berbeda, kemudian menggabungkan hasil prediksinya melalui *majority voting*.
+* **Parameter yang Digunakan (Baseline dan Tuning)**:
+  * `random_state=42`: Mengunci *seed* generator acak agar hasil pembagian data dan pembentukan pohon dapat direproduksi.
+  * `n_estimators`: Jumlah pohon keputusan yang dibangun di dalam ensemble.
+  * `max_depth`: Batas kedalaman maksimum dari setiap pohon keputusan untuk mengontrol kompleksitas model dan menghindari *overfitting*.
+  * `min_samples_split`: Jumlah minimum sampel data yang diperlukan untuk memecah simpul interval.
 * **Kelebihan**: Sangat tahan terhadap **overfitting**, mampu menangani hubungan non-linear yang kompleks, serta stabil terhadap data dengan banyak fitur.
 * **Kekurangan**: Model bersifat *black-box* dan membutuhkan memori komputasi lebih besar.
 
 ### 3. XGBoost (Extreme Gradient Boosting)
 * **Cara Kerja**: Merupakan metode *ensemble boosting* berbasis *gradient boosting framework* yang membangun pohon keputusan secara sekuensial, di mana setiap pohon baru bertugas mengoreksi residual error dari pohon-pohon sebelumnya dengan regularisasi L1/L2.
+* **Parameter yang Digunakan**:
+  * `random_state=42`: Mengunci *seed* generator acak untuk konsistensi hasil pelatihan model.
+  * `eval_metric='logloss'`: Metrik *loss function* berbasis *binary cross-entropy* yang dioptimasi selama proses iterasi boosting.
 * **Kelebihan**: kecepatan eksekusi tinggi berkat optimasi komputasi paralel, memiliki mekanisme regularisasi internal untuk mencegah *overfitting*, serta performa yang umumnya sangat unggul pada data tabular.
 * **Kekurangan**: Memiliki banyak parameter kompleks yang memerlukan tuning intensif dan relatif sensitif terhadap *noisy labels*.
 
