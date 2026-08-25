@@ -133,7 +133,7 @@ Optimasi hyperparameter dilakukan pada model **Random Forest** menggunakan `Grid
 ---
 
 ### Pemilihan Model Terbaik
-Berdasarkan hasil pengujian pada *test set*, *Random Forest** tanpa tuning dipilih sebagai model terbaik untuk solusi akhir karena mencatatkan performa tertinggi secara konsisten dengan **Akurasi 87.50%**, **F1-Score 0.8667**, dan **ROC-AUC 0.9332**. Model ini memberikan trade-off yang optimal antara tingkat presisi dan sensitivitas dalam mendeteksi pasien yang berisiko penyakit jantung.
+Berdasarkan hasil pengujian pada *test set*, *Random Forest** tanpa tuning dipilih sebagai model terbaik untuk solusi akhir karena mencatatkan performa tertinggi secara konsisten dengan **Akurasi 87.50%**, **F1-Score 0.8867**, dan **ROC-AUC 0.9332**. Model ini memberikan trade-off yang optimal antara tingkat presisi dan sensitivitas dalam mendeteksi pasien yang berisiko penyakit jantung.
 
 ## Evaluation
 Metrik evaluasi yang digunakan untuk mengukur kinerja klasifikasi biner ini meliputi **Accuracy**, **Precision**, **Recall**, **F1-Score**, dan **ROC-AUC**.
@@ -176,5 +176,5 @@ Berdasarkan hasil pengujian Random Forest pada 184 sampel data uji:
 ### 4. Dampak terhadap Business Understanding
 
 * **Menjawab Problem Statement 1**: Analisis korelasi dan distribusi menunjukkan bahwa fitur `Oldpeak`, `MaxHR`, `ExerciseAngina`, `ChestPainType` (tipe ASY), dan bentuk `ST_Slope` (Flat/Down) merupakan indikator klinis paling dominan terhadap risiko gagal jantung.
-* **Mencapai Goals**: Model *Random Forest* berhasil melampaui target performa dengan mencapai **Akurasi 87.50%** dan **F1-Score 0.8667**.
+* **Mencapai Goals**: Model *Random Forest* berhasil melampaui target performa dengan mencapai **Akurasi 87.50%** dan **F1-Score 0.8867**.
 * **Dampak Solusi**: Tingkat *Recall* sebesar $88.24\%$ dan *ROC-AUC* sebesar $0.9332$ membuktikan bahwa sistem pendukung keputusan ini memiliki sensitivitas tinggi untuk menyaring pasien berisiko tinggi secara akurat, membantu tenaga medis melakukan intervensi dini secara cepat, serta mengurangi risiko fatalitas akibat keterlambatan penanganan.
