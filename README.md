@@ -52,16 +52,20 @@ Dataset yang digunakan dalam proyek ini adalah **Heart Failure Prediction Datase
 * **ST_Slope**: Kemiringan puncak segmen ST saat latihan puncak [Kategorik: `UP` = Upsloping, `Flat` = Flat, `Down` = Downsloping]
 * **HeartDisease**: Label target diagnosis penyakit jantung [Kategorik Biner: `1` = Memiliki penyakit jantung, `0` = Sehat]
 
+
 ### Exploratory Data Analysis (EDA)
 
 Berdasarkan tahapan eksplorasi data yang telah dilakukan, diperoleh beberapa wawasan penting:
-1. **Kondisi dan Kualitas Data**
+1. **Pengecekan Data Duplikat dan Outlier**
+   * Berdasarkan fungsi `df.duplicated().sum()`, tidak ditemukan adanya data duplikat.
+   * Visualisasi boxplot menunjukkan adanya beberapa titik outlier pada fitur `RestingBP`, `Cholesterol`, dan `Oldpeak`. Namun nilai-nilai tersebut tetap dipertahankan karena secara medis nilai ekstrem tersebut merepresentasikan kondisi klinis nyata pasien darurat kardiovaskular.
+2. **Kondisi dan Kualitas Data**
    * Fitur Target `HeartDisease` memiliki distribusi yang relatif seimbang, yaitu 508 pasien positif dan 410 pasien negatif, sehingga data tidak memerlukan teknik *resampling* ekstrem.
    * Ditemukan nilai $0$ tidak wajar pada `RestingBP` dan `Cholesterol`, mengingat secara fisiologis tekanan darah dan kolesterol manusia tidak mungkin bernilai 0.
-2. **Analisi Univariate**
+3. **Analisi Univariate**
    * Mayoritas pasien berjenis kelamin laki-laki, yaitu 725 pasien dibandingkan perempuan yang hanya sebanyak 193 pasien.
    * Sebagian besar pasien berada pada rentang usia 47 hingga 60 tahun.
-3. **Analisis Multivariate & Korelasi**
+4. **Analisis Multivariate & Korelasi**
    * `Oldpeak`, `Age`, dan `FastingBS` memiliki korelasi positif signifikan dengan `HeartDisease`.
    * `MaxHR` memiliki korelasi negatif kuat, mengindikasikan bahwa pasien yang tidak mampu mencapai detak jantung maksimal tinggi saat beraktivitas memiliki risiko gagal jantung lebih besar.
    * Pasien dengan tipe nyeri data `ASY` mengalami `ExerciseAngina` = `Y`, serta bentuk `ST_Slope` bertipe `FLAT` atau `Down` memiliki proporsi kasus positif penyakit jantung yang lebih dominan dibanding kategori lainnya.
