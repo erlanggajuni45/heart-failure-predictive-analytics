@@ -5,8 +5,8 @@
 Penyakit Kardiovaskular (*Cardiovascular Diseases* / CVDs) merupakan penyebab utama kematian di seluruh dunia. Menurut data dari Organisasi Kesehatan Dunia (*World Health Organization* / WHO), diperkirakan 19.8 juta orang meninggal di tahun 2022, 32% diantaranya disebabkan oleh penyakit CVDs. Dari kematian tersebut, 85% disebabkan oleh serangan jantung dan stroke. Sebagian besar penyakit kardiovaskular sebenarnya dapat dicegah melalui penanganan dini terhadap faktor risiko seperti tekanan darah tinggi, peningkatan kadar kolesterol, glukosa darah tinggi, serta pemantauan aktivitas fisik yang tepat. 
 
 **Mengapa dan Bagaimana Masalah Ini Harus Diselesaikan:**
-* **Urgensi Klinis**: Diagnosis penyakit jantung yang terlambat sering kali berakibat fatal. Pemeriksaan medis konvensional sering kali memerlukan waktu, peralatan khusus, dan analisis mendalam dari tenaga medis spesialis yang ketersediaannya terbatas di beberapa fasilitas kesehatan.
-* **Solusi Pendekatan Machine Learning**: Dengan memanfaatka riwayat rekam medis dan data klinis pasien, model *predictive analytics* berbasis *machine learning* dapat dikembangkan sebagai sistem pendukung keputusan. Sistem ini memungkinkan deteksi dini risiko penyakit gagal jantung secara cepat dan non-invasif sehingga tenaga medis dapat segera mengambil tindakan preventif atau intervensi medis sebelum kondisi pasien memburuk.
+* Diagnosis penyakit jantung yang terlambat sering kali berakibat fatal. Pemeriksaan medis konvensional sering kali memerlukan waktu, peralatan khusus, dan analisis mendalam dari tenaga medis spesialis yang ketersediaannya terbatas di beberapa fasilitas kesehatan.
+* Dengan memanfaatkan riwayat rekam medis dan data klinis pasien, model *predictive analytics* berbasis *machine learning* dapat dikembangkan sebagai sistem pendukung keputusan. Sistem ini memungkinkan deteksi dini risiko penyakit gagal jantung secara cepat dan non-invasif sehingga tenaga medis dapat segera mengambil tindakan preventif atau intervensi medis sebelum kondisi pasien memburuk.
 
 **Referensi:**
 1. World Health Organization (WHO). (2025). *Cardiovascular disease (CVDs)*. WHO Fact Sheets.
@@ -16,32 +16,24 @@ Penyakit Kardiovaskular (*Cardiovascular Diseases* / CVDs) merupakan penyebab ut
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Pengembangan model *predictive analytics* ini ditujukan untuk menfasilitasi deteksi dini risiko penyakit jantung secara efisien menggunakan data klinis non-invasif pasien.
 
 ### Problem Statements
-
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+* Dari serangkaian fitur rekam medis pasien, faktor klinis apa saja yang paling berkorelasi kuat terhadap risiko penyakit jantung?
+* Bagaimana membangun model *machine learning* yang mampu mengidentifikasi risiko penyakit jantung pasien secara akurat berdasarkan fitur klinis tersebut?
 
 ### Goals
+* Mengetahui karakteristik dan fitur klinis yang memiliki korelasi dominan terhadap diagnosis penyakit jantung melalui analisis data eksploratif.
+* Membangun model klasifikasi *machine learning* dengan metrik evaluasi yang optimal untuk memprediksi potensi penyakit jantung secara andal.
 
-Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
-
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+### Solution Statements
+Untuk mencapai target yang telah ditetapkan, diajukan beberapa pendekatan solusi berikut:
+* Membangun dan membandingkan tiga algoritma dengan karakteristik berbeda:
+  1. *K-Nearest Neighbors* (KNN) sebagai model berbasis jarak.
+  2. *Random Forest Classifier* sebagai representasi metode *ensemble bagging*.
+  3. *XGBoost Classifier* sebagai representasi metode *ensemble boosting*.
+* Melakukan optimasi hyperparameter menggunakan *Grid Search Cross-Validation* pada model *Random Forest* untuk mencari kombinasi parameter terbaik guna meningkatkan generalisasi model.
+* Kinerja seluruh model dievaluasi dan dibandingkan menggunakan metrik *Accuracy*, *Precision*, *Recall*, *F1-Score*, dan *ROC-AUC* pada *test set* independen.
 
 ## Data Understanding
 Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
