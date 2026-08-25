@@ -68,11 +68,21 @@ Berdasarkan tahapan eksplorasi data yang telah dilakukan, diperoleh beberapa waw
    
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Tahap persiapan data dilakukan secara berurutan untuk memastikan dataa siap digunakan oleh model *machine learning* dan mencegah terjadinya *data leakage*.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+### Tahapan Data Preparation yang Dilakukan
+1. **Penanganan Nilai 0 Anomali**
+   * **Proses**: Nilai 0 pada fitur `RestingBP` diganti menggunakan nilai median dari baris non-nol. Pada kolom `Cholesterol`, nilai 0 diimputasi menggunakan median dari data valid non-nol.
+   * **Alasan**: Secara medis, tekanan darah dan kadar kolesterol serum manusia tidak mungkin bernilai 0. Nilai ini merupakan *implicit missing value*. Imputasi median dipilih karena lebih tahan terhadap pengaruh nilai ekstrim dibandingkan mean.
+2. **Transformasi Fitur Kategorikal**
+   * **Proses**: Menerapkan teknik *One-Hot Encoding* menggunakan `pd.get_dummies()` dengan argumen `drop_first=True` pada seluruh variabel kategorikal teks.
+   * **Alasan**: Algoritma *machine learning* berbasis matematika membutuhkan input numerik. Penerapan `drop_first=True` bertujuan untuk mencegah terjadinya *multicollinearity* atau *dummy variable trap*. Tahap ini menghasilkan 15 fitur prediktor.
+3. **Pembagian Dataset**
+   * **Proses**: Membagi dataset menjadi data latih sebesar 80% dan data uji sebesar 20% menggunakan `train_test_split` dengan parameter `stratify=y` dan `random_state=42`.
+   * **Alasan**: Pembagian dataset diperlukan untuk mengevaluasi kemampuan generalisasi model terhadap data baru yang belum pernah dilihat sebelumnya. Parameter `stratify` memastikan proporsi kelas target `HeartDisease` pada data latih dan data uji tetap identik dengan distribusi populasi aslinya.
+4. **Standarisasi Fitur Numerik**
+   * **Proses**: Menstandarisasi 5 fitur numerik kontinu (`Age`, `RestingBP`, `Cholesterol`, `MaxHR`, `Oldpeak`) menggunakan `StandardScaler`. Fungsi `fit_transform()` hanya diterapkan pada data latih, sedangkan data uji hanya diterapkan `transform()`.
+   * **Alasan**: Algoritma seperti KNN dan *Gradient Boosting* sensitif terhadap perbedaan skala antar variabel. Standarisasi mengubah data menjadi berdistribusi dengan rata-rata 0 dan standar deviasi 1. Penerapan `fit` hanya pada data latih bertujuan mutlak untuk mencegah *data leakage* dari data uji.
 
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
