@@ -48,6 +48,20 @@ sns.set_theme(style='whitegrid')
 numerical_cols = ['Age', 'RestingBP', 'Cholesterol', 'FastingBS', 'MaxHR', 'Oldpeak']
 categorical_cols = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
 
+"""cek data duplikat"""
+
+print("Jumlah data duplikat:", df.duplicated().sum())
+
+"""cek outlier dengan visualisasi Boxplot"""
+
+plt.figure(figsize=(15, 6))
+for i, col in enumerate(numerical_cols, 1):
+  plt.subplot(2, 3, i)
+  sns.boxplot(y=df[col], color='skyblue')
+  plt.title(f'Boxplot {col}')
+plt.tight_layout()
+plt.show()
+
 """Univariate Analysis fitur numerik"""
 
 plt.figure(figsize=(15, 8))
@@ -210,7 +224,7 @@ for name, model in models.items():
 df_metrics = pd.DataFrame(metrics_list)
 metrics_cols = ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'ROC-AUC']
 print("=== Tabel Perbandingan Kinerja Model pada Data Uji ===")
-display(df_metrics.style.highlight_max(color='lightgreen', axis=0, subset=metrics_cols))
+display(df_metrics.style.highlight_max(color='#c8e6c9', axis=0, subset=metrics_cols))
 
 """visualisasi confusion matrix untuk model terbaik, yaitu Random Forest tanpa hyperparameter tuning"""
 
