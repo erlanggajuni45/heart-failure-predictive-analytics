@@ -85,12 +85,41 @@ Tahap persiapan data dilakukan secara berurutan untuk memastikan dataa siap digu
    * **Alasan**: Algoritma seperti KNN dan *Gradient Boosting* sensitif terhadap perbedaan skala antar variabel. Standarisasi mengubah data menjadi berdistribusi dengan rata-rata 0 dan standar deviasi 1. Penerapan `fit` hanya pada data latih bertujuan mutlak untuk mencegah *data leakage* dari data uji.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Pada tahap ini, dibangun tiga algoritma *machine learning* yang berbeda untuk menyelesaikan masalah klasifikasi biner deteksi penyakit jantung. Selain itu, dilakukan *hyperparameter tuning* pada model *ensemble* untuk memaksimalkan performa.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+### 1. K-Nearest Neigbors (KNN)
+* **Cara Kerja**: Mengklasifikasikan data uji berdasarkan mayoritas label dari sejumlah $k$ tetangga terdekatnya menggunakan perhitungan jarak Euclideann. Pada proyek ini digunakan parameter default $k=5$.
+* **Kelebihan**: Sederhana, tidak memiliki asumsi terhadap distribusi data dan tidak membutuhkan fase training yang kompleks.
+* **Kekurangan**: Sangat lambat saat memprediksi data dalam jumlah besar, sensitif terhadap *outlier*, dan rentan terhadap fitur yang tidak relevaan jika jarak tidak terstandarisasi.
+
+### 2. Random Forest Classifier
+* **Cara Kerja**: Merupakan metode *ensemble bagging* yang membangun puluhan/ratusan pohon keputusan secara paralel dengan subset data dan subset fitur yang berbeda, kemudian menggabungkan hasil prediksinya melalui *majority voting*.
+* **Kelebihan**: Sangat tahan terhadap **overfitting**, mampu menangani hubungan non-linear yang kompleks, serta stabil terhadap data dengan banyak fitur.
+* **Kekurangan**: Model bersifat *black-box* dan membutuhkan memori komputasi lebih besar.
+
+### 3. XGBoost (Extreme Gradient Boosting)
+* **Cara Kerja**: Merupakan metode *ensemble boosting* berbasis *gradient boosting framework* yang membangun pohon keputusan secara sekuensial, di mana setiap pohon baru bertugas mengoreksi residual error dari pohon-pohon sebelumnya dengan regularisasi L1/L2.
+* **Kelebihan**: kecepatan eksekusi tinggi berkat optimasi komputasi paralel, memiliki mekanisme regularisasi internal untuk mencegah *overfitting*, serta performa yang umumnya sangat unggul pada data tabular.
+* **Kekurangan**: Memiliki banyak parameter kompleks yang memerlukan tuning intensif dan relatif sensitif terhadap *noisy labels*.
+
+---
+
+### Hyperparameter Tuning
+Optimasi hyperparameter dilakukan pada model **Random Forest** menggunakan `GridSearchCV` dengan 5-Fold Cross-Validation (`cv=5`) dan metrik penentu skor `F1`.
+
+* **Ruang Parameter yang Diuji**
+  * `n_estimators`: `[50, 100, 200]`
+  * `max_depth`: `[4, 6, 8, 10]`
+  * `min_samples_split`: `[2, 5, 10]`
+* **Hasil Parameter Terbaik**
+  * `max_depth`: `6`
+  * `min_samples_split`: `5`
+  * `n_estimators`: `50`
+
+---
+
+### Pemilihan Model Terbaik
+Berdasarkan hasil pengujian pada *test set*, *Random Forest** tanpa tuning dipilih sebagai model terbaik untuk solusi akhir karena mencatatkan performa tertinggi secara konsisten dengan **Akurasi 87.50%**, **F1-Score 0.8667**, dan **ROC-AUC 0.9332**. Model ini memberikan trade-off yang optimal antara tingkat presisi dan sensitivitas dalam mendeteksi pasien yang berisiko penyakit jantung.
 
 ## Evaluation
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
