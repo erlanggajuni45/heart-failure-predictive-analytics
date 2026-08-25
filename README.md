@@ -36,17 +36,36 @@ Untuk mencapai target yang telah ditetapkan, diajukan beberapa pendekatan solusi
 * Kinerja seluruh model dievaluasi dan dibandingkan menggunakan metrik *Accuracy*, *Precision*, *Recall*, *F1-Score*, dan *ROC-AUC* pada *test set* independen.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dataset yang digunakan dalam proyek ini adalah **Heart Failure Prediction Dataset** yang diperoleh dari platform publik [Kaggle Heart Failure Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction). Dataset ini merupakan hasil kurasi dan penggabungan 5 dataset penyakit jantung independen dari repositori UCI dengan total **918 baris data** dan **12 fitur** tanpa adanya *missing value* eksplisit.
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+### Variabel-variabel pada Heart Failure Prediction Dataset:
+* **Age**: Usia pasien (tahun) [Numerik: 28 - 77]
+* **Sex**: Jenis kelamin pasien [Kategorik: `M` = Male, `F` = Female]
+* **ChestPainType**: Tipe nyeri data [Kategorik: `TA` = Typical Angina, `ATA` = Atypical Angina, `NAP` = Non-Anginal Pain, `ASY` = Asymptomatic]
+* **RestingBP**: Tekanan darah istirahat (mm Hg) [Numerik: 0 - 200]
+* **Cholesterol**: Kadar kolesterol serum (mg/dl) [Numerik: 0 - 603]
+* **FastingBS**: Kadar gula darah puasa [Kategorik Biner: `1` jika FastingBS > 120 mg/dl, `0` jika sebaliknya]
+* **RestingECG**: Hasil elektrokardiogram saat istirahat [Kategorik: `Normal` = Normal, `ST` = memiliki kelainan gelombang ST-T, `LVH` = hipertrofi ventrikel kiri]
+* **MaxHR**: Detak jantung maksimum yang dicapai [Numerik: 60 - 202]
+* **ExerciseAngina**: Angina yang dipicu oleh aktivitas fisik/olahraga [Kategorik: `Y` = Yes, `N` = No]
+* **Oldpeak**: Depresi segmen ST yang diinduksi oleh latihan relatif terhadap istirahat [Numerik: -2.6 - 6.2]
+* **ST_Slope**: Kemiringan puncak segmen ST saat latihan puncak [Kategorik: `UP` = Upsloping, `Flat` = Flat, `Down` = Downsloping]
+* **HeartDisease**: Label target diagnosis penyakit jantung [Kategorik Biner: `1` = Memiliki penyakit jantung, `0` = Sehat]
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+### Exploratory Data Analysis (EDA)
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+Berdasarkan tahapan eksplorasi data yang telah dilakukan, diperoleh beberapa wawasan penting:
+1. **Kondisi dan Kualitas Data**
+   * Fitur Target `HeartDisease` memiliki distribusi yang relatif seimbang, yaitu 508 pasien positif dan 410 pasien negatif, sehingga data tidak memerlukan teknik *resampling* ekstrem.
+   * Ditemukan nilai $0$ tidak wajar pada `RestingBP` dan `Cholesterol`, mengingat secara fisiologis tekanan darah dan kolesterol manusia tidak mungkin bernilai 0.
+2. **Analisi Univariate**
+   * Mayoritas pasien berjenis kelamin laki-laki, yaitu 725 pasien dibandingkan perempuan yang hanya sebanyak 193 pasien.
+   * Sebagian besar pasien berada pada rentang usia 47 hingga 60 tahun.
+3. **Analisis Multivariate & Korelasi**
+   * `Oldpeak`, `Age`, dan `FastingBS` memiliki korelasi positif signifikan dengan `HeartDisease`.
+   * `MaxHR` memiliki korelasi negatif kuat, mengindikasikan bahwa pasien yang tidak mampu mencapai detak jantung maksimal tinggi saat beraktivitas memiliki risiko gagal jantung lebih besar.
+   * Pasien dengan tipe nyeri data `ASY` mengalami `ExerciseAngina` = `Y`, serta bentuk `ST_Slope` bertipe `FLAT` atau `Down` memiliki proporsi kasus positif penyakit jantung yang lebih dominan dibanding kategori lainnya.
+   
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
