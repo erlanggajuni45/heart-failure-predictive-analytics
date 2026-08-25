@@ -122,19 +122,45 @@ Optimasi hyperparameter dilakukan pada model **Random Forest** menggunakan `Grid
 Berdasarkan hasil pengujian pada *test set*, *Random Forest** tanpa tuning dipilih sebagai model terbaik untuk solusi akhir karena mencatatkan performa tertinggi secara konsisten dengan **Akurasi 87.50%**, **F1-Score 0.8667**, dan **ROC-AUC 0.9332**. Model ini memberikan trade-off yang optimal antara tingkat presisi dan sensitivitas dalam mendeteksi pasien yang berisiko penyakit jantung.
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Metrik evaluasi yang digunakan untuk mengukur kinerja klasifikasi biner ini meliputi **Accuracy**, **Precision**, **Recall**, **F1-Score**, dan **ROC-AUC**.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+### 1. penjelasan dan Formula Metrik
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+* **Accuracy**: Mengukur proporsi total prediksi yang benar terhadap keseluruhan data uji.
+  $$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}$$
+* **Precision**: Mengukur ketepatan model dalam memprediksi pasien yang benar-benar sakit dari seluruh pasien yang diprediksi positif sakit.
+  $$\text{Precision} = \frac{TP}{TP + FP}$$
+* **Recall (Sensitivity)**: Mengukur kemampuan model dalam menangkap seluruh pasien yang sebenarnya menderita penyakit jantung (*sangat krusial dalam konteks medis untuk meminimalkan False Negative*).
+  $$\text{Recall} = \frac{TP}{TP + FN}$$
+* **F1-Score**: Rata-rata harmonik antara *Precision* dan *Recall* untuk memberikan gambaran kinerja yang seimbang.
+  $$\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+* **ROC-AUC**: Mengukur kemampuan model dalam membedakan antara kelas positif dan negatif pada berbagai batas *threshold*.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+---
 
-**---Ini adalah bagian akhir laporan---**
+### 2. Hasil Evaluasi pada Data Uji
+Berikut adalah ringkasan perbandingan metrik evaluasi dari model-model yang diuji:
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Random Forest (Baseline)** | **87.50%** | **89.11%** | **88.24%** | **0.8867** | **0.9332** |
+| Random Forest (Tuned) | 86.96% | 89.00% | 87.25% | 0.8812 | 0.9296 |
+| XGBoost | 85.87% | 88.00% | 86.27% | 0.8713 | 0.9142 |
+| KNN | 84.24% | 87.63% | 83.33% | 0.8543 | 0.9244 |
+
+---
+
+### 3. Analisis Confusion Matrix
+Berdasarkan hasil pengujian Random Forest pada 184 sampel data uji:
+* **True Positive (TP)**: 90 pasien terdeteksi memiliki penyakit jantung dengan tepat.
+* **True Negative (TN)**: 71 pasien normal terdeteksi sehat dengan tepat.
+* **False Positive (FP)**: 11 pasien sehat salah didiagnosis berpenyakit jantung.
+* **False Negative (FN)**: 12 pasien yang harusnya berpenyakit jantung didiagnosis normal.
+
+---
+
+### 4. Dampak terhadap Business Understanding
+
+* **Menjawab Problem Statement 1**: Analisis korelasi dan distribusi menunjukkan bahwa fitur `Oldpeak`, `MaxHR`, `ExerciseAngina`, `ChestPainType` (tipe ASY), dan bentuk `ST_Slope` (Flat/Down) merupakan indikator klinis paling dominan terhadap risiko gagal jantung.
+* **Mencapai Goals**: Model *Random Forest* berhasil melampaui target performa dengan mencapai **Akurasi 87.50%** dan **F1-Score 0.8667**.
+* **Dampak Solusi**: Tingkat *Recall* sebesar $88.24\%$ dan *ROC-AUC* sebesar $0.9332$ membuktikan bahwa sistem pendukung keputusan ini memiliki sensitivitas tinggi untuk menyaring pasien berisiko tinggi secara akurat, membantu tenaga medis melakukan intervensi dini secara cepat, serta mengurangi risiko fatalitas akibat keterlambatan penanganan.
