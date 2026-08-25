@@ -1,14 +1,18 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Erlangga Juni Saputra
 
 ## Domain Proyek
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Penyakit Kardiovaskular (*Cardiovascular Diseases* / CVDs) merupakan penyebab utama kematian di seluruh dunia. Menurut data dari Organisasi Kesehatan Dunia (*World Health Organization* / WHO), diperkirakan 19.8 juta orang meninggal di tahun 2022, 32% diantaranya disebabkan oleh penyakit CVDs. Dari kematian tersebut, 85% disebabkan oleh serangan jantung dan stroke. Sebagian besar penyakit kardiovaskular sebenarnya dapat dicegah melalui penanganan dini terhadap faktor risiko seperti tekanan darah tinggi, peningkatan kadar kolesterol, glukosa darah tinggi, serta pemantauan aktivitas fisik yang tepat. 
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-- Format Referensi dapat mengacu pada penulisan sitasi [IEEE](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf), [APA](https://www.mendeley.com/guides/apa-citation-guide/) atau secara umum seperti [di sini](https://penerbitdeepublish.com/menulis-buku-membuat-sitasi-dengan-mudah/)
-- Sumber yang bisa digunakan [Scholar](https://scholar.google.com/)
+**Mengapa dan Bagaimana Masalah Ini Harus Diselesaikan:**
+* **Urgensi Klinis**: Diagnosis penyakit jantung yang terlambat sering kali berakibat fatal. Pemeriksaan medis konvensional sering kali memerlukan waktu, peralatan khusus, dan analisis mendalam dari tenaga medis spesialis yang ketersediaannya terbatas di beberapa fasilitas kesehatan.
+* **Solusi Pendekatan Machine Learning**: Dengan memanfaatka riwayat rekam medis dan data klinis pasien, model *predictive analytics* berbasis *machine learning* dapat dikembangkan sebagai sistem pendukung keputusan. Sistem ini memungkinkan deteksi dini risiko penyakit gagal jantung secara cepat dan non-invasif sehingga tenaga medis dapat segera mengambil tindakan preventif atau intervensi medis sebelum kondisi pasien memburuk.
+
+**Referensi:**
+1. World Health Organization (WHO). (2025). *Cardiovascular disease (CVDs)*. WHO Fact Sheets.
+2. Fedesoriano. (2021). *Heart Failure Prediction Dataset*. Kaggle.
+3. Detrano, R., Janosi, A., Steinbrunn, W., Pfisterer, M., Schmid, J. J., Sandhu, S., Guppy, K. H., Lee, S., & Froelicher, V. (1989). International application of a new probability algorithm for the diagnosis of coronary artery disease. The American Journal of Cardiology, 64(5), 304-310.
+
 
 ## Business Understanding
 
